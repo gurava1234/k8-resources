@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: pod
+metadata:
+  name: label-demo
+  labels:
+   Course: DevOps
+   Learner: "guru"
+  annotations:
+   com.roboshop.learner.duration: "120 hours"
+   jenkins.url: "https://jenkins.com/roboshop/catalogue#45"
+ spec:
+# list of conatiners
+  containers:
+  - name: hello-pod
+    image: nginx
+    ports:
+    - containerport: 80
