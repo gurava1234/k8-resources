@@ -6,7 +6,7 @@ metadata:
    Course: DevOps
    Learner: "guru"
   annotations:
-   com.roboshop.learner.duration: "120 hours"
+   com.roboshop.learner.duration: "120hours"
    jenkins.url: "https://jenkins.com/roboshop/catalogue#45"
  spec:
 # list of conatiners
