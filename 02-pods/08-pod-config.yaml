@@ -23,3 +23,23 @@ spec:
         configMapkeyRef:
           name: devops-config
           key: learner
+
+-----------------------------------------
+
+apiVersion: v1
+kind: pod
+metadata:
+  name: config-pod
+  namespace: roboshop
+spec:
+# list of conatiners
+  containers:
+  - name: config-pod
+    image: nginx
+    #here with this line port will not be opned, just for information
+    ports:
+    - containerport: 80
+    envFrom:
+    - configMapRef:
+       name: devops-config
+   
