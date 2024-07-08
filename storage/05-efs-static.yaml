@@ -1,36 +1,38 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: ebs-static
+  name: efs-static
 spec:
-  accessModes:
-  - ReadWriteOnce #EBS volume should have readwriteonce, because it HD.
   capacity:
-    storage: 10Gi
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ""
+  persistentVolumeReclaimPolicy: Retain
   csi:
-    driver: ebs.csi.aws.com
-    fsType: ext4
-    volumeHandle: vol-03c604538dd7d2f41 #we need to give our volume id
--------
+    driver: efs.csi.aws.com
+    volumeHandle: fs-e8a95a42 #(we will get it from aws efs filesystem)
+----
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: ebs-static
+  name: efs-static
 spec:
-  storageClassName: "" # Empty string must be explicitly set otherwise default StorageClass will be set.For static provisioning this is empty
-  volumeName: ebs-static
   accessModes:
     - ReadWriteOnce
+  storageClassName: ""
+  volumeName: efs-static
   resources:
     requests:
       storage: 5Gi
------
+------
 apiVersion: v1
 kind: Pod
 metadata:
   name: app
   labels:
-    demo: ebs-static
+    demo: efs-static
 spec:
   containers:
   - name: nginx
@@ -43,16 +45,16 @@ spec:
   volumes:
   - name: nginx-data
     persistentVolumeClaim:
-      claimName: ebs-static
+      claimName: efs-static
 --------
 apiVersion: v1
 kind: service
 metadata:
-  name: ebs-static
+  name: efs-static
 spec: 
   type: LoadBalancer
   selector:
-   demo: ebs-static
+   demo: efs-static
   ports:
   - protocol: TCP
     port: 80  #service-port
