@@ -5,7 +5,7 @@ metadata:
   labels:
    Course: DevOps
    Learner: "guru"
- spec:
+spec:
 # list of conatiners
   containers:
   - name: hello-pod
