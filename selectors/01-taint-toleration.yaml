@@ -4,7 +4,7 @@ metadata:
   name: taint-pod
 spec:
 # list of conatiners
-  containers:
+  containers
   - name: taint-pod
     image: nginx
     #here with this line port will not be opned, just for information
